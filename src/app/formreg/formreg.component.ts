@@ -10,7 +10,12 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio'; 
 import { MatDatepickerModule } from '@angular/material/datepicker'; 
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
+import { DatePipe } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-formreg',
@@ -27,12 +32,24 @@ import {MatDividerModule} from '@angular/material/divider';
     MatNativeDateModule,
     ReactiveFormsModule,
     FormsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   templateUrl: './formreg.component.html',
   styleUrl: './formreg.component.css'
 })
 export class FormregComponent {
+  isDark: boolean = false;
+
+  toggleDarkMode() {
+    this.isDark = !this.isDark;
+    document.body.style.backgroundColor = this.isDark ? "#121212" : "#f5f5f5";
+    document.body.style.color = this.isDark ? "white" : "black";
+  }
+
+  static readonly darkStyleName = 'darkMode';
   name: string = '';
   userName: string = '';
   email: string = '';
@@ -45,6 +62,12 @@ export class FormregComponent {
   submitted = false;
   minSkillLevel = 1;
   maxSkillLevel = 10;
+  prefMedium: string = '';
+  // maxDate: string = 'yyyy-MM-dd';
+  // startDate: string = '';
+  // endDate: string = '';
+  // maxDate: string  = '';
+
 
   formdata: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -52,10 +75,11 @@ export class FormregComponent {
     phone: new FormControl(''),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     gender: new FormControl('', [Validators.required]),
-    birthDate: new FormControl(null, [Validators.required, Validators.pattern('^(0[1-6]|[5-9]\d)$')]),
+    birthDate: new FormControl(null, [Validators.required]),
     address: new FormControl(''),
     angularSkillLevel: new FormControl(5),
     userName: new FormControl('', [Validators.required]),
+    prefMedium: new FormControl('', [Validators.required])
   });
 
   onClickSubmit(data: { 
@@ -68,6 +92,8 @@ export class FormregComponent {
     angularSkillLevel: number; 
     name: string;
     phone: string;
+    prefMedium: string;
+    maxDate: string;
   })
   {
     this.submitted = true; 
@@ -80,6 +106,7 @@ export class FormregComponent {
     this.birthDate = data.birthDate; 
     this.name = data.name
     this.phone = data.phone;
+    this.prefMedium = data.prefMedium;
     
     if (this.formdata.valid) { 
       console.log("Form Submitted!", this.formdata.value); 

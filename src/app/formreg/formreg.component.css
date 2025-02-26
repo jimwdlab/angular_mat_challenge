@@ -7,7 +7,6 @@ body {
   
   h1 {
     text-align: center;
-    color: #333;
     margin-top: 20px;
     font-size: 2em;
     font-weight: bold;
@@ -84,4 +83,45 @@ body {
   
   mat-radio-button {
     margin-right: 12px;
+  }
+
+  .dark-class {
+    background-color: #f3f3f1;
+    color: white;
+  }
+  
+  .dark-class mat-form-field, 
+  .dark-class input, 
+  .dark-class, 
+  .dark-class textarea {
+    color: white;
+  }
+  
+  .dark-class mat-form-field input {
+    background-color: #333;
+    color: white;
+  }
+  
+  .dark-class mat-form-field textarea {
+    background-color: #333;
+    color: white;
+  }
+  
+  .dark-class mat-select {
+    color: white;
+  }
+  
+  .dark-class button {
+    background-color: #444;
+    color: white;
+  }
+  
+  
+  .dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+      padding: 1em;
+      margin: 20px 0;
+      border-radius: 1.5em;
+      cursor: pointer;
   }
