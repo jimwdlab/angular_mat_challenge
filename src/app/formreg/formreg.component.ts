@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { DatePipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @Component({
@@ -35,7 +37,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatDividerModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSlideToggleModule,
+    MatSelectModule
   ],
   templateUrl: './formreg.component.html',
   styleUrl: './formreg.component.css'
@@ -45,8 +49,11 @@ export class FormregComponent {
 
   toggleDarkMode() {
     this.isDark = !this.isDark;
-    document.body.style.backgroundColor = this.isDark ? "#121212" : "#f5f5f5";
-    document.body.style.color = this.isDark ? "white" : "black";
+    if (this.isDark) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
   }
 
   static readonly darkStyleName = 'darkMode';
@@ -57,16 +64,12 @@ export class FormregComponent {
   password: string = '';
   gender: string = '';
   birthDate!: Date;
-  address: string = '';
   angularSkillLevel: number = 5;
   submitted = false;
   minSkillLevel = 1;
   maxSkillLevel = 10;
   prefMedium: string = '';
-  // maxDate: string = 'yyyy-MM-dd';
-  // startDate: string = '';
-  // endDate: string = '';
-  // maxDate: string  = '';
+  mediums = ['Online', 'Face-to-face'];
 
 
   formdata: FormGroup = new FormGroup({
@@ -76,7 +79,6 @@ export class FormregComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     gender: new FormControl('', [Validators.required]),
     birthDate: new FormControl(null, [Validators.required]),
-    address: new FormControl(''),
     angularSkillLevel: new FormControl(5),
     userName: new FormControl('', [Validators.required]),
     prefMedium: new FormControl('', [Validators.required])
@@ -87,13 +89,11 @@ export class FormregComponent {
     email: string; 
     password: string; 
     gender: string; 
-    address: string; 
     birthDate: Date; 
     angularSkillLevel: number; 
     name: string;
     phone: string;
     prefMedium: string;
-    maxDate: string;
   })
   {
     this.submitted = true; 
@@ -101,7 +101,6 @@ export class FormregComponent {
     this.email = data.email; 
     this.password = data.password; 
     this.gender = data.gender; 
-    this.address = data.address; 
     this.angularSkillLevel = data.angularSkillLevel; 
     this.birthDate = data.birthDate; 
     this.name = data.name

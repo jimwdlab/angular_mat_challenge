@@ -24,6 +24,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
+  .dark-toggle {
+    margin-bottom: 1em !important;
+  }
   
   mat-form-field {
     width: 100%;
@@ -85,43 +89,6 @@ body {
     margin-right: 12px;
   }
 
-  .dark-class {
-    background-color: #f3f3f1;
-    color: white;
-  }
-  
-  .dark-class mat-form-field, 
-  .dark-class input, 
-  .dark-class, 
-  .dark-class textarea {
-    color: white;
-  }
-  
-  .dark-class mat-form-field input {
-    background-color: #333;
-    color: white;
-  }
-  
-  .dark-class mat-form-field textarea {
-    background-color: #333;
-    color: white;
-  }
-  
-  .dark-class mat-select {
-    color: white;
-  }
-  
-  .dark-class button {
-    background-color: #444;
-    color: white;
-  }
-  
-  
-  .dark-mode {
-      background-color: #121212;
-      color: #ffffff;
-      padding: 1em;
-      margin: 20px 0;
-      border-radius: 1.5em;
-      cursor: pointer;
+  h6 {
+    margin-top: 1em;
   }

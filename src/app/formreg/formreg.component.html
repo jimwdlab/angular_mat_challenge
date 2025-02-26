@@ -1,8 +1,8 @@
 <h1 class="pamagat">Web Dev Workshop Registration Form</h1>
 <p class="nameko">Created by Jimwel L. Valdez of WD-302</p>
 
-<div class="form-container" [class.dark-class]="isDark" [class.white-class]="!isDark">
-    <button class="dark" (click)="toggleDarkMode()">Switch theme to light/dark</button>
+<div class="form-container dark-toggle">
+    <mat-slide-toggle class="dark" (change)="toggleDarkMode()">Dark mode</mat-slide-toggle>
  </div>
 
 <div class="form-container">
@@ -10,6 +10,9 @@
         <mat-form-field appearance="fill">
             <mat-label>Full name</mat-label>
             <input matInput placeholder="Valdez, Jimwel L." formControlName="name">
+            <mat-error *ngIf="formdata.controls['email'].invalid && formdata.controls['email'].touched">
+                Please enter your full name.
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -35,11 +38,6 @@
         </div>
 
         <mat-form-field appearance="fill">
-            <mat-label>Address</mat-label>
-            <input matInput placeholder="Enter Address" formControlName="address">
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
             <mat-label>Birth Date</mat-label>
             <input matInput [matDatepicker]="picker" placeholder="Select a date" formControlName="birthDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -50,13 +48,14 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Preferred medium of workshop:</mat-label>
-            <select matNativeControl formControlName="prefMedium" required>
-              <option value="Online">Online</option>
-              <option value="Face-to-face">Face-to-face</option>
-            </select>
+            <mat-label>Preferred medium of workshop</mat-label>
+            <mat-select matNativeControl formControlName="prefMedium" required>
+                @for (medium of mediums; track medium) {
+                    <mat-option [value]="medium">{{ medium }}</mat-option>
+                  }
+            </mat-select>
             <mat-error *ngIf="formdata.controls['prefMedium'].invalid && formdata.controls['prefMedium'].touched">
-                Preferred medium is required and must be a valid email.
+                Preferred medium is required.
             </mat-error>
         </mat-form-field>         
         
@@ -71,13 +70,16 @@
 
         <mat-card appearance="outlined">
             <mat-card-content>
-                <p>For your workshop account, please provide the following information:</p>
+                <p>For the creation of your workshop account, please provide the following information:</p>
             </mat-card-content>
           </mat-card>
 
         <mat-form-field appearance="fill">
             <mat-label>Preferred username</mat-label>
-            <input matInput placeholder="Valdez, Jimwel L." formControlName="userName">
+            <input matInput placeholder="jlvaldez" formControlName="userName">
+            <mat-error *ngIf="formdata.controls['userName'].invalid && formdata.controls['userName'].touched">
+                Preferred username is required.
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -89,18 +91,24 @@
         </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid">
-            Click Here
+            Register
         </button>
     </form>
 
-    <p *ngIf="submitted">
-        You have entered: <br>
-        Username: {{ userName }} <br>
-        Email: {{ email }} <br>
-        Password: {{ password }} <br>
-        Gender: {{ gender }} <br>
-        Address: {{ address }} <br>
-        Birth Date: {{ birthDate | date:'shortDate' }} <br>
-        Angular Skill Level: {{ angularSkillLevel }} <br>
-    </p>
+    <div *ngIf="submitted">
+        <h6>Great! See you at the Web Dev Workshop. Happy Coding!</h6>
+        <p>
+            <b>Here are the details you have entered:</b> <br>
+            Full name: {{ name }} <br>
+            Email: {{ email }} <br>
+            Phone: {{ phone }} <br>
+            Gender: {{ gender }} <br>
+            Birth Date: {{ birthDate | date:'shortDate' }} <br>
+            Preferred medium: {{ prefMedium }} <br>
+            Web Skill Level: {{ angularSkillLevel }} <br>
+            <b>Account details:</b> <br>
+            Username: {{ userName }} <br>
+            Password: hidden for your security
+        </p>
+    </div>
 </div>
